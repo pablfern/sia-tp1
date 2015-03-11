@@ -32,6 +32,7 @@ public abstract class GPSEngine {
 
 		open.add(rootNode);
 		while (!failed && !finished) {
+			System.out.println(open.size());
 			if (open.size() <= 0) {
 				failed = true;
 			} else {

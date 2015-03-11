@@ -25,15 +25,17 @@ public class EightQueensProblem implements GPSProblem {
 		board[5][4] = true;
 		board[6][0] = true;
 		board[7][5] = true;
-		return new BoardState(board);
+		return new BoardState(board,8);
 	}
 
 	@Override
 	public List<GPSRule> getRules() {
 		List<GPSRule> list = new ArrayList<GPSRule>();
-		list.add(new DiagonalRule());
-		list.add(new VerticalRule());
-		list.add(new HorizontalRule());
+		for(int i=0;i<8;i++){
+			for(int j=0;j<8;j++){
+				list.add(new PlaceQueenRule(i, j));
+			}
+		}
 		return list;
 	}
 
