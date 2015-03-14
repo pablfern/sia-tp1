@@ -41,8 +41,20 @@ public class BoardState implements GPSState {
 		return board[i][j];
 	}
 
+	private boolean[][] copyBoard() {
+		boolean[][] newBoard = new boolean[8][8];
+
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				newBoard[i][j] = board[i][j];
+			}
+		}
+
+		return newBoard;
+	}
+
 	public GPSState placeQueen(int i, int j) throws NotAppliableException {
-		boolean[][] newBoard = this.board;
+		boolean[][] newBoard = copyBoard();
 		if (newBoard[i][j] || queenCount == 8) {
 			throw new NotAppliableException();
 		}
@@ -51,7 +63,7 @@ public class BoardState implements GPSState {
 		checkDiagonal(i, j);
 		newBoard[i][j] = true;
 
-		return new BoardState(newBoard, queenCount++);
+		return new BoardState(newBoard, queenCount + 1);
 	}
 
 	public boolean[][] getBoard() {

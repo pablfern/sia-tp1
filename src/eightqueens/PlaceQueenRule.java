@@ -26,10 +26,7 @@ public class PlaceQueenRule implements GPSRule {
 
 	@Override
 	public GPSState evalRule(GPSState state) throws NotAppliableException {
+		return ((BoardState) state).placeQueen(i, j);
 
-		GPSState ans = null;
-		ans = ((BoardState) state).placeQueen(i, j);
-		return ans;
-		
 	}
 }

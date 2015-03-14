@@ -6,10 +6,10 @@ import gps.api.GPSProblem;
 
 public class Start {
 	public static void main(String[] args) {
-		System.out.println("hola");
+		System.out.println("Calculando...");
 		GPSProblem problem = new EightQueensProblem();
-		GPSEngine engine = new EightQueensEngine(SearchStrategy.BFS);
+		GPSEngine engine = new EightQueensEngine();
 		engine.engine(problem, SearchStrategy.BFS);
-		System.out.println("fin");
+		System.out.println("Fin");
 	}
 }

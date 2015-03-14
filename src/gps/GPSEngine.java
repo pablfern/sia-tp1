@@ -57,17 +57,17 @@ public abstract class GPSEngine {
 		}
 	}
 
-	private  boolean isGoal(GPSNode currentNode) {
+	private boolean isGoal(GPSNode currentNode) {
 		return currentNode.getState() != null
 				&& currentNode.getState().compare(problem.getGoalState());
 	}
 
-	private  boolean explode(GPSNode node) {
-		if(problem.getRules() == null){
+	private boolean explode(GPSNode node) {
+		if (problem.getRules() == null) {
 			System.err.println("No rules!");
 			return false;
 		}
-		
+
 		for (GPSRule rule : problem.getRules()) {
 			GPSState newState = null;
 			try {
@@ -88,7 +88,7 @@ public abstract class GPSEngine {
 		return true;
 	}
 
-	private  boolean checkOpenAndClosed(Integer cost, GPSState state) {
+	private boolean checkOpenAndClosed(Integer cost, GPSState state) {
 		for (GPSNode openNode : open) {
 			if (openNode.getState().compare(state) && openNode.getCost() < cost) {
 				return true;
@@ -103,7 +103,7 @@ public abstract class GPSEngine {
 		return false;
 	}
 
-	private  boolean checkBranch(GPSNode parent, GPSState state) {
+	private boolean checkBranch(GPSNode parent, GPSState state) {
 		if (parent == null) {
 			return false;
 		}
@@ -111,6 +111,6 @@ public abstract class GPSEngine {
 				|| state.compare(parent.getState());
 	}
 
-	public abstract  void addNode(GPSNode node);
-	
+	public abstract void addNode(GPSNode node);
+
 }

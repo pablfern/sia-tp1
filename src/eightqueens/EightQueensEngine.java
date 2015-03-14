@@ -1,16 +1,11 @@
 package eightqueens;
 
-import javax.management.RuntimeErrorException;
-
 import gps.GPSEngine;
 import gps.GPSNode;
-import gps.SearchStrategy;
+
+import javax.management.RuntimeErrorException;
 
 public class EightQueensEngine extends GPSEngine {
-
-	public EightQueensEngine(SearchStrategy myStrategy) {
-		strategy = myStrategy;
-	}
 
 	@Override
 	public void addNode(GPSNode node) {
