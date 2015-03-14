@@ -86,7 +86,7 @@ public class BoardState implements GPSState {
 		}
 	}
 
-	private void checkDiagonal(int j, int i) throws NotAppliableException {
+	private void checkDiagonal(int i, int j) throws NotAppliableException {
 		step(board, i, j, 1, 1);
 		step(board, i, j, -1, 1);
 		step(board, i, j, 1, -1);

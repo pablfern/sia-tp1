@@ -19,7 +19,13 @@ public interface GPSProblem {
 	 */
 	GPSState getGoalState();
 
-	
+	/**
+	 * Determines if a state is a goalState. It is used to allow
+	 * multiple goal states
+	 * @param state
+	 * @return
+	 */
+	boolean isGoalState(GPSState state);
 	/**
 	 * Provides the list of all the rules that the problem involves. 
 	 * These rules are state independent.

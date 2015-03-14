@@ -1,5 +1,6 @@
 package gps;
 
+import eightqueens.BoardState;
 import exception.NotAppliableException;
 import gps.api.GPSProblem;
 import gps.api.GPSRule;
@@ -32,7 +33,6 @@ public abstract class GPSEngine {
 
 		open.add(rootNode);
 		while (!failed && !finished) {
-			System.out.println(open.size());
 			if (open.size() <= 0) {
 				failed = true;
 			} else {
@@ -41,6 +41,12 @@ public abstract class GPSEngine {
 				open.remove(0);
 				if (isGoal(currentNode)) {
 					finished = true;
+					for(int i = 0; i <8;i++){
+						for(int j=0;j<8;j++){
+							System.out.print(((BoardState) currentNode.getState()).getPosition(i,j)?"X":"0");
+						}
+						System.out.println();
+					}
 					System.out.println(currentNode.getSolution());
 					System.out.println("Expanded nodes: " + explosionCounter);
 				} else {
@@ -58,8 +64,9 @@ public abstract class GPSEngine {
 	}
 
 	private boolean isGoal(GPSNode currentNode) {
+		// Change code to allow multiple goalStates
 		return currentNode.getState() != null
-				&& currentNode.getState().compare(problem.getGoalState());
+				&& problem.isGoalState(currentNode.getState());
 	}
 
 	private boolean explode(GPSNode node) {
