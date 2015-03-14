@@ -3,94 +3,86 @@ package eightqueens;
 import exception.NotAppliableException;
 import gps.api.GPSState;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class BoardState implements GPSState {
 
-	private boolean board[][];
-	private int queenCount = 0;
+	private Set<Queen> queens;
 
 	public BoardState() {
-		this.board = new boolean[8][8];
+		queens = new HashSet<Queen>();
 	}
 
-	public BoardState(boolean board[][], int queenCount) {
-		this.board = board;
-		this.queenCount = queenCount;
+	public BoardState(Set<Queen> queens) {
+		this.queens = queens;
 	}
 
 	public int getQueenCount() {
-		return queenCount;
+		return queens.size();
+	}
+
+	public Set<Queen> getQueens() {
+		return this.queens;
+	}
+	
+	public boolean maxQueensReached(){
+		if(queens.size()==8)
+			return true;
+		return false;
 	}
 
 	@Override
 	public boolean compare(GPSState state) {
-		if (queenCount != ((BoardState) state).getQueenCount()) {
+		if (queens.size() != ((BoardState) state).getQueenCount()) {
 			return false;
 		}
+		return queens.containsAll(((BoardState) state).getQueens());
 
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				if (board[i][j] != ((BoardState) state).getPosition(i, j)) {
-					return false;
-				}
-			}
-		}
-		return true;
 	}
 
-	public boolean getPosition(int i, int j) {
-		return board[i][j];
+	private boolean addQueen(Queen queen) {
+		return queens.add(queen);
 	}
 
-	private boolean[][] copyBoard() {
-		boolean[][] newBoard = new boolean[8][8];
-
+	public void printBoard() {
+		int[][] board = new int[8][8];
+		for (Queen queen : queens) {
+			board[queen.getI()][queen.getJ()] = 1;
+		}
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				newBoard[i][j] = board[i][j];
+				System.out.print(board[i][j]);
 			}
+			System.out.println();
 		}
-
-		return newBoard;
 	}
 
 	public GPSState placeQueen(int i, int j) throws NotAppliableException {
-		boolean[][] newBoard = copyBoard();
-		if (newBoard[i][j] || queenCount == 8) {
+		// If there are 8 queens you can't add any more.
+		if (maxQueensReached()) {
 			throw new NotAppliableException();
 		}
-		checkHorizontalAndVertical(i, j);
-		checkDiagonal(i, j);
-		newBoard[i][j] = true;
 
-		return new BoardState(newBoard, queenCount + 1);
-	}
+		// Create new board
+		BoardState newBoard = new BoardState();
+		Queen newQueen = new Queen(i, j);
 
-	public boolean[][] getBoard() {
-		return board;
-	}
-	
-	private void checkHorizontalAndVertical(int row, int column) throws NotAppliableException{
-		for(int i = 0; i <8; i++){
-			if(board[row][i] || board[i][column]){
+		// Iterates over the previous board
+		// Before adding it to the new board it checks if
+		// it belongs to the same diagonal
+		for (Queen queen : queens) {
+			if (newQueen.isAttacking(queen)) {
 				throw new NotAppliableException();
 			}
+			newBoard.addQueen(new Queen(queen.getI(), queen.getJ()));
 		}
-	}
 
-	private void checkDiagonal(int i, int j) throws NotAppliableException {
-		step(board, i, j, 1, 1);
-		step(board, i, j, -1, 1);
-		step(board, i, j, 1, -1);
-		step(board, i, j, -1, -1);
-	}
-
-	private void step(boolean[][] board, int i, int j, int stepi, int stepj)
-			throws NotAppliableException {
-		for (int x = i, y = j; x < 8 && x >= 0 && y < 8 && y >= 0; x += stepi, y += stepj) {
-			if (board[x][y]) {
-				throw new NotAppliableException();
-			}
+		// Add the new queen to the new board
+		if (!newBoard.addQueen(newQueen)) {
+			throw new NotAppliableException();
 		}
+		return newBoard;
 	}
 
 }

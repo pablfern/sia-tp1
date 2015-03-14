@@ -11,7 +11,7 @@ public class Start {
 		GPSProblem problem = new EightQueensProblem();
 		GPSEngine engine = new EightQueensEngine();
 		engine.engine(problem, SearchStrategy.DFS);
-		long end = System.currentTimeMillis();	
+		long end = System.currentTimeMillis();
 		System.out.println("Fin. Tiempo estimado: " + (end-start)/1000 + " segundos");
 	}
 }

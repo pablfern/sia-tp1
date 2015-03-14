@@ -17,24 +17,25 @@ public class EightQueensProblem implements GPSProblem {
 	@Override
 	// DO NOT USE. It was used in an older version
 	public GPSState getGoalState() {
-		boolean board[][] = new boolean[8][8];
-		board[0][3] = true;
-		board[1][6] = true;
-		board[2][2] = true;
-		board[3][7] = true;
-		board[4][1] = true;
-		board[5][4] = true;
-		board[6][0] = true;
-		board[7][5] = true;
-		return new BoardState(board, 8);
+		// boolean board[][] = new boolean[8][8];
+		// board[0][3] = true;
+		// board[1][6] = true;
+		// board[2][2] = true;
+		// board[3][7] = true;
+		// board[4][1] = true;
+		// board[5][4] = true;
+		// board[6][0] = true;
+		// board[7][5] = true;
+		// return new BoardState(board, 8);
+		return null;
 	}
 
 	@Override
-	// Since the board checks for duplicate queens in rows, columns and diagonals
+	// Since the board checks for duplicate queens in rows, columns and
+	// diagonals
 	// This method is only required to check the total count of queens.
 	public boolean isGoalState(GPSState state) {
-		BoardState boardState = (BoardState) state;
-		return boardState.getQueenCount() == 8;
+		return ((BoardState) state).maxQueensReached();
 	}
 
 	@Override

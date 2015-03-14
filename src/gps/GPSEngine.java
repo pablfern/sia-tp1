@@ -41,12 +41,7 @@ public abstract class GPSEngine {
 				open.remove(0);
 				if (isGoal(currentNode)) {
 					finished = true;
-					for(int i = 0; i <8;i++){
-						for(int j=0;j<8;j++){
-							System.out.print(((BoardState) currentNode.getState()).getPosition(i,j)?"X":"0");
-						}
-						System.out.println();
-					}
+					((BoardState) currentNode.getState()).printBoard();
 					System.out.println(currentNode.getSolution());
 					System.out.println("Expanded nodes: " + explosionCounter);
 				} else {
