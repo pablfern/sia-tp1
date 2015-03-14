@@ -58,8 +58,7 @@ public class BoardState implements GPSState {
 		if (newBoard[i][j] || queenCount == 8) {
 			throw new NotAppliableException();
 		}
-		checkVertical(j);
-		checkHorizontal(i);
+		checkHorizontalAndVertical(i, j);
 		checkDiagonal(i, j);
 		newBoard[i][j] = true;
 
@@ -69,18 +68,10 @@ public class BoardState implements GPSState {
 	public boolean[][] getBoard() {
 		return board;
 	}
-
-	private void checkHorizontal(int row) throws NotAppliableException {
-		for (int j = 0; j < 8; j++) {
-			if (board[row][j]) {
-				throw new NotAppliableException();
-			}
-		}
-	}
-
-	private void checkVertical(int column) throws NotAppliableException {
-		for (int j = 0; j < 8; j++) {
-			if (board[j][column]) {
+	
+	private void checkHorizontalAndVertical(int row, int column) throws NotAppliableException{
+		for(int i = 0; i <8; i++){
+			if(board[row][i] || board[i][column]){
 				throw new NotAppliableException();
 			}
 		}
