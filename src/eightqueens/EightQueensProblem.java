@@ -30,42 +30,11 @@ public class EightQueensProblem implements GPSProblem {
 	}
 
 	@Override
+	// Since the board checks for duplicate queens in rows, columns and diagonals
+	// This method is only required to check the total count of queens.
 	public boolean isGoalState(GPSState state) {
 		BoardState boardState = (BoardState) state;
-		boolean[][] board = boardState.getBoard();
-
-		if (boardState.getQueenCount() != 8) {
-			return false;
-		}
-
-		for (int i = 0; i < 8; i++) {
-			boolean queen = false;
-			for (int j = 0; j < 8; j++) {
-				if (board[i][j] && queen) {
-					return false;
-				} else if (board[i][j] && !queen) {
-					queen = true;
-					if (!checkDiagonal(board, i, j))
-						;
-				}
-			}
-			queen = false;
-		}
-		return true;
-	}
-
-	private boolean checkDiagonal(boolean[][] board, int i, int j) {
-		return step(board, i, j, 1, 1) && step(board, i, j, -1, 1)
-				&& step(board, i, j, 1, -1) && step(board, i, j, -1, -1);
-	}
-
-	private boolean step(boolean[][] board, int i, int j, int stepi, int stepj) {
-		for (int x = i, y = j; x < 8 && x >= 0 && y < 8 && y >= 0; x += stepi, y += stepj) {
-			if (board[x][y]) {
-				return false;
-			}
-		}
-		return true;
+		return boardState.getQueenCount() == 8;
 	}
 
 	@Override
